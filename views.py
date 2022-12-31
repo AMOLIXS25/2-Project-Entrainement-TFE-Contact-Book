@@ -2,6 +2,8 @@
 from PySide6.QtCore import QSize
 from PySide6.QtWidgets import QMainWindow, QTableView, QAbstractItemView, QPushButton, QHBoxLayout, QVBoxLayout, QWidget
 
+from database import Database
+
 
 class MainWindow(QMainWindow):
     """The Main Window of the application"""
@@ -9,6 +11,9 @@ class MainWindow(QMainWindow):
     def __init__(self):
         """Main Window's constructor"""
         super().__init__()
+        self.database: Database = Database("QSQLITE", "contacts.db")
+        self.database.open_connection()
+        print(self.database.database_connection.tables())
         self.setWindowTitle("Contacts")
         self.setFixedSize(QSize(600, 300))
         self.setup_ui()
